@@ -22723,7 +22723,7 @@ printFrameWithSP(char *theFP, char *theSP)
     usqInt index;
     sqInt methodField;
     usqInt numArgs;
-    sqInt numTemps;
+    usqInt numTemps;
     char *rcvrAddress;
     sqInt rcvrOrClosure;
     CogBlockMethod * self_in_cmHomeMethod;

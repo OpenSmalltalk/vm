@@ -1244,7 +1244,7 @@ static sqInt NoDbgRegParms num64BitUnitsOf(sqInt objOop);
 static sqInt NoDbgRegParms numBytesOfBitsformat(sqInt objOop, sqInt format);
 static sqInt NoDbgRegParms numBytesOfBytes(sqInt objOop);
 extern sqInt numBytesOf(sqInt objOop);
-extern usqInt numPointerSlotsOf(sqInt objOop);
+extern sqInt numPointerSlotsOf(sqInt objOop);
 static usqInt NoDbgRegParms numSlotsOfAny(sqInt objOop);
 extern usqInt numSlotsOf(sqInt objOop);
 static sqInt NoDbgRegParms numStrongSlotsOfInephemeral(sqInt objOop);
@@ -41422,7 +41422,7 @@ followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth)
     sqInt header1;
     sqInt i;
     sqInt numLiterals;
-    usqInt numSlots;
+    sqInt numSlots;
     usqInt numSlots1;
     sqInt oop;
     sqInt referent;
@@ -48757,7 +48757,7 @@ copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop, sqInt segAddr, sqInt endS
     sqInt iLimiT;
     sqInt methodHeader;
     sqInt numLiterals;
-    usqInt numMediatedSlots;
+    sqInt numMediatedSlots;
     usqInt numSlots;
     usqInt numSlots1;
     sqInt oop;
@@ -48789,7 +48789,7 @@ copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop, sqInt segAddr, sqInt endS
 			   here but that requires access to framePointer. */
 			/* begin numSlotsOfMarriedContext: */
 			contextSize = stackPointerIndexForFrame(frameOfMarriedContext(objOop));
-			numMediatedSlots = ((sqInt) (CtxtTempFrameStart + contextSize));
+			numMediatedSlots = CtxtTempFrameStart + contextSize;
 			for (i1 = 0; i1 < numMediatedSlots; i1 += 1) {
 				oop = fetchPointerofMarriedContext(i1, objOop);
 				assert(!(isOopForwarded(copy)));
@@ -55258,7 +55258,7 @@ numBytesOf(sqInt objOop)
 	Works with CompiledMethods, as well as ordinary objects. */
 
 	/* SpurMemoryManager>>#numPointerSlotsOf: */
-usqInt
+sqInt
 numPointerSlotsOf(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt contextSize;
@@ -58253,7 +58253,7 @@ printReferencesTo(sqInt anOop)
 					assert((ReceiverIndex + ((sp >> 1))) < (lengthOf(obj1)));
 					contextSize = (sp >> 1);
 	l9:	/* end fetchStackPointerOf: */;
-					i = ((usqInt) (CtxtTempFrameStart + contextSize));
+					i = CtxtTempFrameStart + contextSize;
 					goto l10;
 				}
 				/* begin numSlotsOf: */
@@ -58286,7 +58286,7 @@ printReferencesTo(sqInt anOop)
 			/* begin literalCountOfMethodHeader: */
 			assert((header & 1));
 			numLiterals = ((header >> 1)) & AlternateHeaderNumLiteralsMask;
-			i = ((usqInt) (numLiterals + LiteralStart));
+			i = numLiterals + LiteralStart;
 	l10:	/* end numPointerSlotsOf: */;
 			while (((i -= 1)) >= 0) {
 				if (anOop == (longAt((obj1 + BaseHeaderSize) + (((sqInt)((usqInt)(i) << (shiftForWord()))))))) {
@@ -61440,10 +61440,10 @@ updatePointers(void)
     sqInt numLiterals1;
     sqInt numLiterals2;
     sqInt numLiterals3;
-    usqInt numPointerSlots;
-    usqInt numPointerSlots1;
-    usqInt numPointerSlots2;
-    usqInt numPointerSlots3;
+    sqInt numPointerSlots;
+    sqInt numPointerSlots1;
+    sqInt numPointerSlots2;
+    sqInt numPointerSlots3;
     usqInt numSlots;
     usqInt numSlots1;
     usqInt numSlots11;
@@ -62602,7 +62602,7 @@ prepareForSnapshot(void)
     sqInt limit;
     sqInt newEndOfMemory;
     sqInt next;
-    sqInt node;
+    usqInt node;
     SpurSegmentInfo *seg;
     sqInt smallChild;
     sqInt treeNode;
@@ -66259,8 +66259,8 @@ static sqInt
 getErrorObjectFromPrimFailCode(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt classIndex;
-    sqInt clone;
-    sqInt errObj;
+    usqInt clone;
+    usqInt errObj;
     sqInt fieldIndex;
     sqInt i;
     usqInt newObj;

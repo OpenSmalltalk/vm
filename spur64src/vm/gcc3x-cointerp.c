@@ -64243,8 +64243,8 @@ static sqInt
 getErrorObjectFromPrimFailCode(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt classIndex;
-    sqInt clone;
-    sqInt errObj;
+    usqInt clone;
+    usqInt errObj;
     sqInt fieldIndex;
     sqInt i;
     usqInt newObj;

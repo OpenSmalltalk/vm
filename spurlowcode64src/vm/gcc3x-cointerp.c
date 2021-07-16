@@ -80343,7 +80343,7 @@ prepareForSnapshot(void)
     sqInt limit;
     sqInt newEndOfMemory;
     sqInt next;
-    sqInt node;
+    usqInt node;
     SpurSegmentInfo *seg;
     sqInt smallChild;
     sqInt treeNode;
